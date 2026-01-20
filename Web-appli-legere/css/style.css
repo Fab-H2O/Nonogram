@@ -1,0 +1,35 @@
+header{
+    background-color: aqua;
+    position: absolute;
+    top: 0;
+}
+
+main{
+    text-align: center;
+}
+
+#titre{
+    padding: 40px 40px;
+
+}
+
+#grille{
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    right: 50%;
+}
+
+.nono-grille > div {
+    background-color:blue;
+    padding: 10px 0px 20px;
+    border: 1px solid black;
+}
+
+footer{
+    background-color: aliceblue;
+    box-shadow: 50%;
+    position: absolute;
+    bottom: 0;
+}
