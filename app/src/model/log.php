@@ -1,0 +1,51 @@
+<?php
+
+namespace Application\Model\Log;
+
+require_once('src/lib/database.php');
+
+use Application\Lib\Database\DatabaseConnection;
+
+class ModelLogIn
+{
+    public DatabaseConnection $connection;
+    
+    public function LogIn(array $input): int
+    {
+        $req = $this->connection->get_connection()->prepare(
+            'SELECT id, password FROM player WHERE player_name LIKE :username '
+        );
+        $req->execute([
+            'username' => $input['username']
+        ]);
+        
+        //Vérifie que le pseudo existe : si ce n'est pas le cas, renvoie 0
+        $count = $req->rowCount();
+        if($count == 1)
+        {
+            $res = $req->fetch();
+        }
+        else
+        {
+            return 0;
+        }
+        
+        // vérifie que le mot de passe correspond :
+        if(password_verify($input['password'], $res['password']))
+        {
+            //met à jour la date de connexion    
+            $req = $this->connection->get_connection()->prepare(
+                'UPDATE player SET lastLog = NOW() WHERE id = :id'
+            );
+            $req->execute([
+                'id' => $res['id']
+            ]);
+            // retourne l'id du player connecté
+            return $res['id'];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+}
