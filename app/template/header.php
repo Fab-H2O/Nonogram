@@ -6,7 +6,7 @@
     </a>
 <div class="headerbox">
 <?php
-    if(isset($_SESSION["username"]))
+    if(isset($_SESSION['idUserLogged']))
     {
         echo("bonjour ".$_SESSION["username"]);
         echo('

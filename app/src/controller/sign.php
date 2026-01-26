@@ -24,10 +24,10 @@ class ControllerSignIn
         else
         {
             $_SESSION['idUserLogged'] = $signIn->CreateNewUser($input);
+            $_SESSION['username'] = $input['username'];
             $url = "././index.php";
             header( "Location: $url" );
         }
-        
     }
 }
 class ControllerSignOut
