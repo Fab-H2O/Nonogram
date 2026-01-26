@@ -1,17 +1,25 @@
-header, .headerbox {
-    display: flex;
+body {
+    background-color: rgb(111, 111, 111);
+    font-family: "Big shoulders";
 }
-header {
+
+header, .headerbox, .boxHeadLine {
+    background-color: rgb(230, 230, 230);
+    border-bottom: black 1px solid;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
-.headerbox {
-    flex-direction: column;
-    justify-content: space-around;
-}
+
 .form, #error {
-    background-color: beige;
-    
+    background-color: rgb(230, 230, 230);
+
+    border-top: black 3px solid;
+    border-bottom: black 2px solid;
+    border-right: black 2px solid;
+    border-left: black 1px solid;
+
     display: none;
     flex-direction: column;
     justify-content: space-around;
@@ -23,16 +31,25 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
-    padding: 3%;
+
+}
+.formFields {
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 #error {
     display: flex;
+    padding: 2%;
+}
+button, input {
+    font-family: "Big shoulders";
+    background-color: white;
+    border-radius: 0;
 }
 .closeButton {
     width: 20px;
     height: 20px;
-    position: relative;
-    top: 5%;
-    left: 95%;
+    padding: 0;
 }
