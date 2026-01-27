@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author fbnhe
- */
-
+    /**
+     * Cree un nonogram avec une grille aléatoire.
+     * @author fbnhe
+     * @param ligne nombre de lignes (entre 2 et 100)
+     * @param colonne nombre de colonnes (entre 2 et 100)
+     */
 
 
 public class Nonogram {
@@ -24,12 +25,9 @@ public class Nonogram {
     private final List<List<Integer>> colonneIndice;
     
 
-    /**
-     * Cree un nonogram avec une grille aléatoire.
-     *
-     * @param ligne nombre de lignes (entre 2 et 100)
-     * @param colonne nombre de colonnes (entre 2 et 100)
-     */
+    
+    
+    // Gestion de l'intervalle autorise de la grille du nonogram
     public Nonogram(int ligne, int colonne) {
         if (ligne < 2 || colonne < 2 || ligne > 100 || colonne > 100) {
             throw new IllegalArgumentException("Taille invalide : 2 <= ligne, colonne <= 100");
@@ -112,6 +110,8 @@ public class Nonogram {
     public List<List<Integer>> getcolonneIndice() {
         return colonneIndice;
     }
+    
+    
 // ici on affiche dans la console des X et des . (on peut changer cela facilement)
     public void printgrille() {
         System.out.println("Grille (X = noir, . = vide) :");
@@ -122,6 +122,8 @@ public class Nonogram {
             System.out.println();
         }
     }
+    
+    
 // ici on affiche dans la console les indices dans l'ordre Ligne puis colonnes
     public void printClues() {
         System.out.println("Indices lignes :");
@@ -137,6 +139,7 @@ public class Nonogram {
         }
     }
 
+    
     public static void main(String[] args) {
         // ici, on creer un popup qui demande le nombre de ligne et colonne pour generer le nonogram
         int nbLigne = Integer.parseInt(JOptionPane.showInputDialog("Entrer la taille de la grille, ici le nombre de ligne:"));
@@ -157,9 +160,9 @@ public class Nonogram {
         boolean[][] solved = solver.solve();
 
         if (solved == null) {
-            System.out.println("\nAucune solution trouvée.");
+            System.out.println("\nAucune solution trouvee.");
         } else {
-            System.out.println("\nSolution trouvée :");
+            System.out.println("\nSolution trouvee :");
             for (boolean[] row : solved) {
                 for (boolean cellule : row) {
                     System.out.print(cellule ? "X " : ". ");
