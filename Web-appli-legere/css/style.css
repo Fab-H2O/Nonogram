@@ -1,7 +1,10 @@
-header{
-    background-color: aqua;
-    position: relative;
-    top: 0;
+/* #titre = nom du site
+#grille = text
+.bnt-choix = boutton sous le nonogramme
+.nono-grille = grille de nonogramme */
+
+*{
+    display: center;
 }
 
 main{
@@ -21,15 +24,14 @@ main{
     right: 50%;
 }
 
-.nono-grille > div {
-    background-color:white;
-    padding: 10px 20px 10px;
-    border: 1px solid black;
+.bnt-choix{
+    padding: 0%;
 }
 
-footer{
-    background-color: aliceblue;
-    box-shadow: 50%;
-    position: absolute;
-    bottom: 0;
+.nono-grille > div {
+    background-color:white;
+    padding: 50px 0px 50px;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 1px solid black;
 }
