@@ -87,7 +87,7 @@ public class Nonogram {
             clues.add(count);
         }
         if (clues.isEmpty()) {
-            // Convention : une ligne/colonne vide -> indice "0"
+            // Convention : une ligne/colonne vide ---> indice "0"
             clues.add(0);
         }
         return clues;
@@ -112,7 +112,7 @@ public class Nonogram {
     public List<List<Integer>> getcolonneIndice() {
         return colonneIndice;
     }
-
+// ici on affiche dans la console des X et des . (on peut changer cela facilement)
     public void printgrille() {
         System.out.println("Grille (X = noir, . = vide) :");
         for (int r = 0; r < ligne; r++) {
@@ -122,7 +122,7 @@ public class Nonogram {
             System.out.println();
         }
     }
-
+// ici on affiche dans la console les indices dans l'ordre Ligne puis colonnes
     public void printClues() {
         System.out.println("Indices lignes :");
         for (int r = 0; r < ligne; r++) {
@@ -138,15 +138,35 @@ public class Nonogram {
     }
 
     public static void main(String[] args) {
-        // Ici, on creer un popup qui demande le nombre de ligne et colonne pour generer le nonogram
+        // ici, on creer un popup qui demande le nombre de ligne et colonne pour generer le nonogram
         int nbLigne = Integer.parseInt(JOptionPane.showInputDialog("Entrer la taille de la grille, ici le nombre de ligne:"));
         int nbColonne = Integer.parseInt(JOptionPane.showInputDialog("Entrer la taille de la grille, ici le nombre de colonne:"));
         
         
-        Nonogram nonogram = new Nonogram(nbLigne, nbColonne);
-        nonogram.printgrille();
-        System.out.println();
+        Nonogram nonogram = new Nonogram(nbLigne, nbColonne);        
+        nonogram.printgrille();              
+        System.out.println();        
         nonogram.printClues();
+        
+        // invoke le solveur
+        NonogramSolver solver = new NonogramSolver(
+            nonogram.getligneIndice(),
+            nonogram.getcolonneIndice()
+        );
+        
+        boolean[][] solved = solver.solve();
+
+        if (solved == null) {
+            System.out.println("\nAucune solution trouvée.");
+        } else {
+            System.out.println("\nSolution trouvée :");
+            for (boolean[] row : solved) {
+                for (boolean cellule : row) {
+                    System.out.print(cellule ? "X " : ". ");
+                }
+                System.out.println();
+            }
+        }
     }
 }
 
