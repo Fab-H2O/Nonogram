@@ -1,10 +1,12 @@
 /* #titre = nom du site
 #grille = text
 .bnt-choix = boutton sous le nonogramme
-.nono-grille = grille de nonogramme */
+.nono-carre = grille autour du nonogramme
+#nono-stock = carrée de nonongramme */
 
 *{
     display: center;
+    /*font-style: ;*/
 }
 
 main{
@@ -13,7 +15,7 @@ main{
 
 #titre{
     padding: 40px 40px;
-
+    cursor: default;
 }
 
 #grille{
@@ -22,16 +24,29 @@ main{
     bottom: 50%;
     left: 50%;
     right: 50%;
+    margin-top: 25%;
 }
 
-.bnt-choix{
-    padding: 0%;
+button{
+    cursor: pointer;
+    padding: 0.5%;
+    margin: 0.5%;
+    margin-top: 0.5%;
 }
 
-.nono-grille > div {
-    background-color:white;
-    padding: 50px 0px 50px;
-    margin-left: 20%;
-    margin-right: 20%;
+.nono-carre {
+    padding: 5% 5% 10%;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 2%;
     border: 1px solid black;
+    border-radius: 2%;
+}
+
+#nono-stock {
+    border: 2px solid purple;
+    padding: 2% 2% 2%;
+    margin-right: 120%;
+    margin-top: -22%;
+    margin-left: -22%;
 }
