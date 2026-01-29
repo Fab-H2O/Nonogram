@@ -4,6 +4,7 @@
  */
 package fabTimAlex.nonogram;
 
+import java.awt.Color;
 import java.awt.HeadlessException;
 import javax.swing.JFrame;
 
@@ -19,11 +20,29 @@ public class MainFrame extends JFrame{
         // le nom de la fenetre
         super("Le super genial nonogram");
         
-        setContentPane(new GridPanel());
+        var gridPanel = new GridPanel();
+        
+        // on donne une ID pour que le pixel tourne a une certaine couleur
+        // ici en exemple * prendre une couleur
+        gridPanel.addState(1, Color.blue);
+        gridPanel.addState(2, Color.WHITE, Color.red, "*");
+        gridPanel.addState(3, Color.GREEN, Color.pink, "*");
+        
+        
+        // force 1 pixel a des cordonnees de prendre une certaine couleur
+        gridPanel.setGridListener(()->{
+//            System.out.println("test");
+            gridPanel.setCell(1,1,1);
+            gridPanel.setCell(2,3,4);
+            gridPanel.setCell(3,5,7);
+        });
+        
+        setContentPane(gridPanel);
         
         // permet de creer une fenetre avec une resolution donner, rendre visible
         // et la fermer
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        // resolution de 800 par 800 pixels
         setSize(800,800);
         setVisible(true);
     }

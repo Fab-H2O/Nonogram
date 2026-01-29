@@ -5,8 +5,12 @@
 package fabTimAlex.nonogram;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,8 +22,30 @@ import javax.swing.JPanel;
  * @author fbnhe
  */
 public class GridPanel extends JPanel {
+
+    
+            
+            public interface GridListener {
+                void gridReady();
+            }
+                
+            private GridListener gridListener;
+
+
+
+            public void setGridListener(GridListener gridListener) {
+                this.gridListener = gridListener;
+            }
+            
+            
+            // obligatoire pour eviter les avertissement
             private static final long serialVersionUID = 1L;
-            // euh, tuto a mis cette valeur par defaut, je rectifirait apres
+            
+            // ajout de police d ecriture
+            private static final Font font = new Font("Courier", Font.BOLD, 25);
+            
+            
+            // taille des carrer 30 par 30 pixels
             private static final int CellSize = 30;
 
 
@@ -39,7 +65,7 @@ public class GridPanel extends JPanel {
             }
             @Override
             public void paint(Graphics g){
-                // le nom de la fenetre
+                // le nom de la fenetre definit par super
                 super.paint(g);
                 // cast graphics2d a g
                 Graphics2D g2 = (Graphics2D)g;
@@ -47,7 +73,7 @@ public class GridPanel extends JPanel {
                 // 1.calcul la largeur et la hauteur de la grille
                 int width = getWidth();
                 int height = getHeight();
-
+                // on rajoute -1 pour augmenter la marge
                 gridWidth = (width / CellSize) - 1;
                 gridHeight = (height / CellSize) - 1;
                 
@@ -57,7 +83,7 @@ public class GridPanel extends JPanel {
                 int xSpare = width - (gridWidth * CellSize);
                 int ySpare = height - (gridHeight * CellSize);
 
-                // 3. calcule les marges
+                // 3. calcule les marges pas besoin de faire rightMargin ou BottomMargin
                 leftMargin = xSpare / 2;
                 topMargin = ySpare / 2;
 
@@ -74,10 +100,11 @@ public class GridPanel extends JPanel {
                         
                         Integer state = states[gridy][gridx];
                         
-                        //System.out.println(state);
+                        //System.out.println(state); // test unitaire
                         
                         BufferedImage bi = statesMap.get(state);
-                        //System.out.println(bi);
+                        
+                        //System.out.println(bi); //test unitaire
                         g2.drawImage(bi, x + 1, y + 1, null);
                     }
                 }
@@ -89,17 +116,43 @@ public class GridPanel extends JPanel {
                     return;
                 }
                 
-                states = new Integer[gridHeight][gridHeight];
+                states = new Integer[gridHeight][gridWidth];
                 Arrays.stream(states).forEach(a -> Arrays.fill(a,0));
+                
+                if(gridListener != null){
+                    gridListener.gridReady();
+                }
+            }
+            
+            public void addState(Integer state, Color background){
+                addState(state, Color.white,background, "");
             }
 
-            public void addState(Integer state, Color background){
+            public void addState(Integer state, Color foreground, Color background, String character){
                 BufferedImage bi = new BufferedImage(CellSize - 1,CellSize - 1, BufferedImage.TYPE_INT_RGB);
                 Graphics2D g = bi.createGraphics();
+                g.setColor(background);
                 g.fillRect(0, 0, CellSize - 1, CellSize - 1);
-                g.dispose();
                 
+                
+                if(character.length() !=0){
+                    g.setColor(foreground);
+                    g.setFont(font);
+                    
+                    FontRenderContext frc = g.getFontRenderContext();
+                    TextLayout textlayout = new TextLayout(character, font, frc);
+                    Rectangle2D bounds = textlayout.getBounds();
+                    
+                    float x = CellSize/2 - (float)bounds.getCenterX();
+                    float y = CellSize/2 - (float)bounds.getCenterY();
+                    textlayout.draw(g,x,y);
+                }
+                g.dispose();
                 statesMap.put(state,bi);
+            }
+            
+            public void setCell(int state, int x, int y) {
+                states[y][x] = state;
             }
                     
         }
