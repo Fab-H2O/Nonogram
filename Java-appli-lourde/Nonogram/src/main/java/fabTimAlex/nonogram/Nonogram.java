@@ -142,13 +142,14 @@ public class Nonogram {
     
     public static void main(String[] args) {
         // ici, on creer un popup qui demande le nombre de ligne et colonne pour generer le nonogram
+        // faudra faire autre chose pour gerer cela
         int nbLigne = Integer.parseInt(JOptionPane.showInputDialog("Entrer la taille de la grille, ici le nombre de ligne:"));
         int nbColonne = Integer.parseInt(JOptionPane.showInputDialog("Entrer la taille de la grille, ici le nombre de colonne:"));
         
         
         Nonogram nonogram = new Nonogram(nbLigne, nbColonne);        
         nonogram.printgrille();              
-        System.out.println();        
+//        System.out.println();        
         nonogram.printClues();
         
         // invoke le solveur
@@ -163,8 +164,8 @@ public class Nonogram {
             System.out.println("\nAucune solution trouvee.");
         } else {
             System.out.println("\nSolution trouvee :");
-            for (boolean[] row : solved) {
-                for (boolean cellule : row) {
+            for (boolean[] line : solved) {
+                for (boolean cellule : line) {
                     System.out.print(cellule ? "X " : ". ");
                 }
                 System.out.println();

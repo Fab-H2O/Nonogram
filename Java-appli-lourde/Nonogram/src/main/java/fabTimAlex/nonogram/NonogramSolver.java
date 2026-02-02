@@ -9,6 +9,7 @@ import java.util.List;
 /**
  *
  * @author fbnhe
+ * Solveur par brute force qui commence par le bas.
  */
 public class NonogramSolver {
 
@@ -28,27 +29,27 @@ public class NonogramSolver {
     }
 
     public boolean[][] solve() {
-        List<List<boolean[]>> rowPossibilities = new ArrayList<>();
+        List<List<boolean[]>> linePossiblilites = new ArrayList<>();
 
         // genere toutes les lignes possibles pour chaque ligne
-        for (List<Integer> clues : ligneIndice) {
-            rowPossibilities.add(generateLinePossibilities(colonne, clues));
+        for (List<Integer> indices : ligneIndice) {
+            linePossiblilites.add(generateLinePossibilities(colonne, indices));
         }
 
-        boolean success = backtrack(0, rowPossibilities);
-        return success ? solution : null;
+        boolean succes = retour(0, linePossiblilites);
+        return succes ? solution : null;
     }
 
-    private boolean backtrack(int row, List<List<boolean[]>> rowPossibilities) {
-        if (row == ligne) {
-            return checkAllColumns();
+    private boolean retour(int line, List<List<boolean[]>> linePossiblilites) {
+        if (line == ligne) {
+            return verifToutColonnes();
         }
 
-        for (boolean[] candidate : rowPossibilities.get(row)) {
-            solution[row] = candidate;
+        for (boolean[] candidate : linePossiblilites.get(line)) {
+            solution[line] = candidate;
 
-            if (checkColumnsUpTo(row)) {
-                if (backtrack(row + 1, rowPossibilities)) {
+            if (VerifColonnes(line)) {
+                if (retour(line + 1, linePossiblilites)) {
                     return true;
                 }
             }
@@ -56,31 +57,31 @@ public class NonogramSolver {
         return false;
     }
 
-    private boolean checkColumnsUpTo(int lastRow) {
+    private boolean VerifColonnes(int derniereLigne) {
         for (int c = 0; c < colonne; c++) {
-            List<Integer> clues = colonneIndice.get(c);
+            List<Integer> indices = colonneIndice.get(c);
             List<Integer> seq = new ArrayList<>();
 
-            int count = 0;
-            for (int r = 0; r <= lastRow; r++) {
-                if (solution[r][c]) count++;
+            int compte = 0;
+            for (int r = 0; r <= derniereLigne; r++) {
+                if (solution[r][c]) compte++;
                 else {
-                    if (count > 0) seq.add(count);
-                    count = 0;
+                    if (compte > 0) seq.add(compte);
+                    compte = 0;
                 }
             }
-            if (count > 0) seq.add(count);
+            if (compte > 0) seq.add(compte);
 
             // verification partielle
             for (int i = 0; i < seq.size(); i++) {
-                if (i >= clues.size()) return false;
-                if (seq.get(i) > clues.get(i)) return false;
+                if (i >= indices.size()) return false;
+                if (seq.get(i) > indices.get(i)) return false;
             }
         }
         return true;
     }
 
-    private boolean checkAllColumns() {
+    private boolean verifToutColonnes() {
         for (int c = 0; c < colonne; c++) {
             if (!CalculeIndiceForColumn(c).equals(colonneIndice.get(c))) {
                 return false;
@@ -90,37 +91,37 @@ public class NonogramSolver {
     }
 
     private List<Integer> CalculeIndiceForColumn(int col) {
-        List<Integer> clues = new ArrayList<>();
-        int count = 0;
+        List<Integer> indices = new ArrayList<>();
+        int compte = 0;
         for (int r = 0; r < ligne; r++) {
-            if (solution[r][col]) count++;
+            if (solution[r][col]) compte++;
             else {
-                if (count > 0) clues.add(count);
-                count = 0;
+                if (compte > 0) indices.add(compte);
+                compte = 0;
             }
         }
-        if (count > 0) clues.add(count);
-        if (clues.isEmpty()) clues.add(0);
-        return clues;
+        if (compte > 0) indices.add(compte);
+        if (indices.isEmpty()) indices.add(0);
+        return indices;
     }
 
-    private List<boolean[]> generateLinePossibilities(int length, List<Integer> clues) {
+    private List<boolean[]> generateLinePossibilities(int length, List<Integer> indices) {
         List<boolean[]> results = new ArrayList<>();
-        generateRec(results, new boolean[length], 0, clues, 0);
+        generateRec(results, new boolean[length], 0, indices, 0);
         return results;
     }
 
     private void generateRec(List<boolean[]> results, boolean[] line, int index,
-                             List<Integer> clues, int clueIndex) {
+                             List<Integer> indices, int clueIndex) {
 
-        if (clueIndex == clues.size()) {
+        if (clueIndex == indices.size()) {
             // remplir le reste en blanc
             for (int i = index; i < line.length; i++) line[i] = false;
             results.add(line.clone());
             return;
         }
 
-        int block = clues.get(clueIndex);
+        int block = indices.get(clueIndex);
 
         for (int start = index; start + block <= line.length; start++) {
             // remplir blancs jusqu'au debut du bloc
@@ -134,7 +135,7 @@ public class NonogramSolver {
                 line[start + block] = false;
             }
 
-            generateRec(results, line, start + block + 1, clues, clueIndex + 1);
+            generateRec(results, line, start + block + 1, indices, clueIndex + 1);
         }
     }
 }

@@ -32,7 +32,6 @@ public class GridPanel extends JPanel {
             private GridListener gridListener;
 
 
-
             public void setGridListener(GridListener gridListener) {
                 this.gridListener = gridListener;
             }
@@ -41,8 +40,8 @@ public class GridPanel extends JPanel {
             // obligatoire pour eviter les avertissement
             private static final long serialVersionUID = 1L;
             
-            // ajout de police d ecriture
-            private static final Font font = new Font("Courier", Font.BOLD, 25);
+            // ajout de police d ecriture et 28 c'est la taille
+            private static final Font font = new Font("Courier", Font.BOLD, 28);
             
             
             // taille des carrer 30 par 30 pixels

@@ -22,11 +22,17 @@ public class MainFrame extends JFrame{
         
         var gridPanel = new GridPanel();
         
-        // on donne une ID pour que le pixel tourne a une certaine couleur
-        // ici en exemple * prendre une couleur
+        /** on donne une ID pour que le pixel tourne a une certaine couleur
+         *  ici en exemple * prendre une couleur exemple:
+         * addState(3, Color.GREEN, Color.pink, "*");
+         * 3 -> ID pour la selection
+         * Color.GREEN -> l'object "*" prendra cette couleur
+         * Color.pink -> la case prendra cette couleur
+         * 
+         */
         gridPanel.addState(1, Color.blue);
-        gridPanel.addState(2, Color.WHITE, Color.red, "*");
-        gridPanel.addState(3, Color.GREEN, Color.pink, "*");
+        gridPanel.addState(2, Color.WHITE, Color.red, "X");
+        gridPanel.addState(3, Color.GREEN, Color.pink, "X");
         
         
         // force 1 pixel a des cordonnees de prendre une certaine couleur
