@@ -8,11 +8,11 @@ import javax.swing.*;
 
 public class LoginForm extends javax.swing.JFrame {
 
-    // 1. Defined Logger and DB URL (Kept from your code)
+    // Defined Logger and DB URL (Kept from your code)
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
     static final String DB_URL = "jdbc:mysql://localhost/nonogram";
 
-    // REMOVED: private String USER/PASS... (We cannot get these yet!)
+
 
     /**
      * Creates new form LoginForm
@@ -20,8 +20,7 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
         
-        // 2. IMPORTANT: We must manually add the listener to the button
-        // because it wasn't added in the Generated Code.
+        // add button listener
         jButtonLogon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,19 +29,20 @@ public class LoginForm extends javax.swing.JFrame {
         });
     }
 
-    // 3. This method now handles the logic CORRECTLY
+
     private void jButtonConnexionActionPerformed(java.awt.event.ActionEvent evt) {
         Connection conn = null;
         Statement stmt = null;
 
-        // Retrieve the data NOW, when the user actually clicks the button
+        // on recupere les infos
         String user = jTextFieldUser.getText();
-        String pass = new String(jPasswordFieldPass.getPassword()); // getPassword() is more secure/correct than getText()
+        // getPassword() est plus securiser getText()
+        String pass = new String(jPasswordFieldPass.getPassword()); 
 
         try {
             jTextArea1.setText("Connexion à la base...\n"); 
             
-            // Attempt connection
+            // tentative de connexion
             conn = DriverManager.getConnection(DB_URL, user, pass);
             
             jTextArea1.append("Connexion réussie !\n");
