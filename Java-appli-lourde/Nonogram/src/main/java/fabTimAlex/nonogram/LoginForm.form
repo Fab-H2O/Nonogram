@@ -34,7 +34,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButtonConnec" alignment="1" pref="136" max="32767" attributes="0"/>
+                          <Component id="jButtonLogon" alignment="1" pref="136" max="32767" attributes="0"/>
                           <Component id="jTextFieldUser" max="32767" attributes="0"/>
                           <Component id="jPasswordFieldPass" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -63,7 +63,7 @@
                   <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButtonConnec" min="-2" max="-2" attributes="0"/>
+              <Component id="jButtonLogon" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
@@ -91,7 +91,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButtonConnec">
+    <Component class="javax.swing.JButton" name="jButtonLogon">
       <Properties>
         <Property name="text" type="java.lang.String" value="Connexion"/>
       </Properties>
