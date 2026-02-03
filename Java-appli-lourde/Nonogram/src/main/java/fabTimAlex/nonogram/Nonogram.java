@@ -151,7 +151,7 @@ public class Nonogram {
         nonogram.printgrille();              
 //        System.out.println();        
         nonogram.printClues();
-        
+         
         // invoke le solveur
         NonogramSolver solver = new NonogramSolver(
             nonogram.getligneIndice(),
