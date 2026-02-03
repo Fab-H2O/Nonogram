@@ -35,8 +35,7 @@ class ControllerLogOut
 {
     public function execute()
     {
-        $_SESSION['idUserLogged'] = null;
-        $_SESSION['username'] = null;
+        session_unset();
 
         $url = "././index.php";
         header( "Location: $url" );

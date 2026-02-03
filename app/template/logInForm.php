@@ -1,7 +1,7 @@
 <form action="index.php?action=logIn" method="post" class="form" id="logInForm"> 
     <div class="boxHeadLine">
         <p>Connexion</p>
-        <button type="button" onclick="closeElement('#logInForm')" class="closeButton">✖</button>
+        <button type="button" class="closeButton" id="closeLogInForm">✖</button>
     </div>
     <div class="formFields">
         <label for="username_logInForm">Votre pseudo : </label> 

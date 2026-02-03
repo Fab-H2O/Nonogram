@@ -1,6 +1,6 @@
 <?php 
     $title = "Picross - Accueil";
-    $scripts = "<script src=\"src/js/homepage.js\" defer></script>";
+    $scripts = "<script type=\"module\" src=\"src/js/homepage.js\"></script>";
     ob_start();
     require_once('header.php'); 
 ?>
@@ -11,6 +11,5 @@
 
 <?php 
     $content = ob_get_clean();
-
     require('layout.php');
 ?>

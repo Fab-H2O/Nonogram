@@ -1,8 +1,8 @@
 <form action="index.php?action=signIn" method="post" class="form" id="signInForm"> 
     <div class="boxHeadLine">    
         <p>Inscription</p> 
-        <button type="button" onclick="closeElement('#signInForm')" class="closeButton">✖</button> 
-    </div>  
+        <button type="button" class="closeButton" id="closeSignInForm">✖</button> 
+    </div>
     <div class="formFields">
         <label for="username_signInForm">Choisissez un pseudo : </label> 
         <input type="text" name="username" id="username_signInForm" autocomplete="off">

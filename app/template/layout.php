@@ -12,6 +12,7 @@
     <title><?= $title ?></title>
 </head>
 <body>
+    <?php echo "Données de sessions  : ".var_dump($_SESSION) ?>
     <?= $content ?>
 </body>
 </html>

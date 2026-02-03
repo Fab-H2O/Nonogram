@@ -18,8 +18,6 @@ class ControllerHomepage
 
         if(isset($_SESSION['idUserLogged']))
         {
-            $id = $_SESSION['idUserLogged'];
-            echo("<script>console.log($id);</script>");
             if(!isset($_SESSION['username']) && $_SESSION['idUserLogged'] > 0)
             {    
                 $_SESSION['username'] = $homepage->GetUsername($_SESSION['idUserLogged']);

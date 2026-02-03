@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(111, 111, 111);
+    background-color: rgb(162, 162, 162);
     font-family: "Big shoulders";
 }
 
@@ -12,15 +12,14 @@ header, .headerbox, .boxHeadLine {
     align-items: center;
 }
 
-.form, #error {
+.form, #error, .displayUserInfos {
     background-color: rgb(230, 230, 230);
 
-    border-top: black 3px solid;
-    border-bottom: black 2px solid;
-    border-right: black 2px solid;
+    border-top: black 2px solid;
+    border-bottom: black 3px solid;
+    border-right: black 3px solid;
     border-left: black 1px solid;
 
-    display: none;
     flex-direction: column;
     justify-content: space-around;
     
@@ -31,7 +30,13 @@ header, .headerbox, .boxHeadLine {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
+}
+.form {
+    display: none;
+}
+#error, .displayUserInfos {
+    display: flex;
+    padding: 2%;
 }
 .formFields {
     padding: 1%;
@@ -39,10 +44,7 @@ header, .headerbox, .boxHeadLine {
     flex-direction: column;
     justify-content: space-around;
 }
-#error {
-    display: flex;
-    padding: 2%;
-}
+
 button, input {
     font-family: "Big shoulders";
     background-color: white;

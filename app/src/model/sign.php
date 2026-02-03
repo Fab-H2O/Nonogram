@@ -6,7 +6,7 @@ require_once('src/lib/database.php');
 
 use Application\Lib\Database\DatabaseConnection;
 
-class ModelSignIn
+class ModelSign
 {
     public DatabaseConnection $connection;
     
@@ -20,7 +20,7 @@ class ModelSignIn
             'username' => $input['username']
         ]);
         $res = $req->fetch();
-        if($res['count(*)'] == "1")
+        if($res['count(*)'] == "1") // si oui : retourne erreur ('-1')
         {
             return -1;
         }
@@ -28,14 +28,23 @@ class ModelSignIn
         {
             // crée une entrée 'player'
             $req = $this->connection->get_connection()->prepare(
-                "INSERT INTO player (player_name, password, isAdmin, lastLog) VALUES (:username, :password, false, NOW())"
+                "INSERT INTO player (player_name, player_pwd, isAdmin, lastLog, sign_out) VALUES (:username, :pwd, false, NOW(), 0)"
             );
             $req->execute([
                 'username' => $input['username'],
-                'password' => password_hash($input['password'], PASSWORD_DEFAULT)
+                'pwd' => password_hash($input['password'], PASSWORD_DEFAULT)
             ]);
-
-            return $this->connection->get_connection()->lastInsertId();
+            $res = $this->connection->get_connection()->lastInsertId();
+            return $res;
         }
+    }
+    public function SignOut(int $id)
+    {
+        $req = $this->connection->get_connection()->prepare(
+            "UPDATE player SET sign_out = 1 WHERE id = :id;"
+        );
+        $req->execute([
+            'id' => $id
+        ]);
     }
 }
