@@ -12,6 +12,28 @@
 cinq = document.getElementById('5')
 cinq.addEventListener ('click', () => {
     console.log("5")
+    const style = document.createElement("style");
+    style.textContent =`
+    .nono-stock {
+        border: 2px solid purple;
+        padding: 2% 2% 2%;
+        margin-right: 120%;
+        margin-top: -20%;
+        margin-left: -22%;
+        cursor: pointer;
+        }
+        `;
+        document.head.appendChild(style);
+
+        const container = document.querySelector(".nono-stock");
+
+        for (i = 0 ; i < 25; i ++){
+            const carre = document.createElement("div");
+            carre.textContent = "carre " + (i + 1);
+            container.appendChild(carre);
+        
+        }
+
 })
 //10
 dix = document.getElementById('10')
