@@ -19,15 +19,20 @@ public class NonogramUI extends javax.swing.JFrame {
      */
 
     
-    private JTextField rowsField;
-    private JTextField colsField;
+
+    private JTextField ligneField;
+    private JTextField colonneField;
     private JPanel gridPanel;
     private Nonogram currentNonogram;
 
+
+    // Genere le "canvas"pour afficher la grille du nonogram
     public NonogramUI() {
             initComponents();
         setTitle("Nonogram Generator & Solver");
+        // setSize c'est la resolution du canvas
         setSize(900, 700);
+        // instruction pour la fermeture de la fenetre
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -39,35 +44,37 @@ public class NonogramUI extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    // fenetre du haut pour controller le nombre de ligne et colonne pour generer la grille.
     private JPanel createControlPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
         panel.add(new JLabel("Lignes :"));
-        rowsField = new JTextField("10", 5);
-        panel.add(rowsField);
+        ligneField = new JTextField("10", 5);
+        panel.add(ligneField);
 
         panel.add(new JLabel("Colonnes :"));
-        colsField = new JTextField("10", 5);
-        panel.add(colsField);
+        colonneField = new JTextField("10", 5);
+        panel.add(colonneField);
 
-        JButton generateBtn = new JButton("Générer");
+        JButton generateBtn = new JButton("generer");
         generateBtn.addActionListener(e -> generateNonogram());
         panel.add(generateBtn);
 
-        JButton solveBtn = new JButton("Résoudre");
+        JButton solveBtn = new JButton("resoudre");
         solveBtn.addActionListener(e -> solveNonogram());
         panel.add(solveBtn);
 
         return panel;
     }
 
+    
     private void generateNonogram() {
         try {
-            int rows = Integer.parseInt(rowsField.getText());
-            int cols = Integer.parseInt(colsField.getText());
+            int ligne = Integer.parseInt(ligneField.getText());
+            int colonne = Integer.parseInt(colonneField.getText());
 
-            currentNonogram = new Nonogram(rows, cols);
+            currentNonogram = new Nonogram(ligne, colonne);
             displayGrid(currentNonogram.getgrille());
 
         } catch (Exception ex) {
@@ -77,7 +84,7 @@ public class NonogramUI extends javax.swing.JFrame {
 
     private void solveNonogram() {
         if (currentNonogram == null) {
-            JOptionPane.showMessageDialog(this, "Génère d'abord un nonogram !");
+            JOptionPane.showMessageDialog(this, "Genere d'abord un nonogram");
             return;
         }
 
@@ -89,7 +96,7 @@ public class NonogramUI extends javax.swing.JFrame {
         boolean[][] solved = solver.solve();
 
         if (solved == null) {
-            JOptionPane.showMessageDialog(this, "Aucune solution trouvée.");
+            JOptionPane.showMessageDialog(this, "aucune solution trouvee.");
         } else {
             displayGrid(solved);
         }
@@ -98,13 +105,13 @@ public class NonogramUI extends javax.swing.JFrame {
     private void displayGrid(boolean[][] grid) {
         gridPanel.removeAll();
 
-        int rows = grid.length;
-        int cols = grid[0].length;
+        int ligne = grid.length;
+        int colonne = grid[0].length;
 
-        gridPanel.setLayout(new GridLayout(rows, cols));
+        gridPanel.setLayout(new GridLayout(ligne, colonne));
 
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols; c++) {
+        for (int r = 0; r < ligne; r++) {
+            for (int c = 0; c < colonne; c++) {
                 JPanel cell = new JPanel();
                 cell.setPreferredSize(new Dimension(20, 20));
                 cell.setBackground(grid[r][c] ? Color.BLACK : Color.WHITE);
@@ -165,7 +172,7 @@ public class NonogramUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        SwingUtilities.invokeLater(NonogramUI::new);
+
         java.awt.EventQueue.invokeLater(() -> new NonogramUI().setVisible(true));
     }
 
