@@ -44,9 +44,10 @@ button{
 }
 
 #nono-stock {
+    display: grid;
+    grid-template-columns: repeat(5, 5fr);
+    max-width: 10%;
     border: 2px solid purple;
-    padding: 2% 2% 2%;
-    margin-right: 120%;
-    margin-top: -22%;
-    margin-left: -22%;
+    cursor: pointer;
 }
+/* reapet */
