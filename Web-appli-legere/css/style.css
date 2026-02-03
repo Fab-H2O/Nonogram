@@ -1,7 +1,12 @@
-header{
-    background-color: aqua;
-    position: absolute;
-    top: 0;
+/* #titre = nom du site
+#grille = text
+.bnt-choix = boutton sous le nonogramme
+.nono-carre = grille autour du nonogramme
+#nono-stock = carrée de nonongramme */
+
+*{
+    display: center;
+    /*font-style: ;*/
 }
 
 main{
@@ -10,7 +15,7 @@ main{
 
 #titre{
     padding: 40px 40px;
-
+    cursor: default;
 }
 
 #grille{
@@ -19,17 +24,30 @@ main{
     bottom: 50%;
     left: 50%;
     right: 50%;
+    margin-top: 25%;
 }
 
-.nono-grille > div {
-    background-color:blue;
-    padding: 10px 0px 20px;
+button{
+    cursor: pointer;
+    padding: 0.5%;
+    margin: 0.5%;
+    margin-top: 0.5%;
+}
+
+.nono-carre {
+    padding: 5% 5% 10%;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 2%;
     border: 1px solid black;
+    border-radius: 2%;
 }
 
-footer{
-    background-color: aliceblue;
-    box-shadow: 50%;
-    position: absolute;
-    bottom: 0;
+#nono-stock {
+    display: grid;
+    grid-template-columns: repeat(5, 5fr);
+    max-width: 10%;
+    border: 2px solid purple;
+    cursor: pointer;
 }
+/* reapet */
