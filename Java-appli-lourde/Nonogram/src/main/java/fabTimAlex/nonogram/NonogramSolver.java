@@ -20,6 +20,8 @@ public class NonogramSolver {
 
     private boolean[][] solution;
 
+    // initialize le solveur de nono gram a partir des indice dans les colonnes et lignes
+    // this.solution permet de creer une grille a partir des lignes et colonnes
     public NonogramSolver(List<List<Integer>> ligneIndice, List<List<Integer>> colonneIndice) {
         this.ligneIndice = ligneIndice;
         this.colonneIndice = colonneIndice;
@@ -27,7 +29,9 @@ public class NonogramSolver {
         this.colonne = colonneIndice.size();
         this.solution = new boolean[ligne][colonne];
     }
-
+    
+    
+    // permet de generer toutes les possibilites pour chaque ligne, si rien est trouver il retourne rien
     public boolean[][] solve() {
         List<List<boolean[]>> linePossiblilites = new ArrayList<>();
 
@@ -39,7 +43,9 @@ public class NonogramSolver {
         boolean succes = retour(0, linePossiblilites);
         return succes ? solution : null;
     }
-
+    
+    
+    // il essaie toute les combination possibles jusqu'a une reponse valide est trouver, c'est du brute force, soit un test des candidats.
     private boolean retour(int line, List<List<boolean[]>> linePossiblilites) {
         if (line == ligne) {
             return verifToutColonnes();
@@ -56,7 +62,9 @@ public class NonogramSolver {
         }
         return false;
     }
-
+    
+    
+    // 
     private boolean VerifColonnes(int derniereLigne) {
         for (int c = 0; c < colonne; c++) {
             List<Integer> indices = colonneIndice.get(c);
