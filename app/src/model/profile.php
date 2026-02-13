@@ -9,12 +9,14 @@ use Application\Lib\Database\DatabaseConnection;
 class ModelProfile
 {
     public DatabaseConnection $connection;
-
+    /*
+    GetOwnInfos retourne les informations concernant l'utilisateur connecté.
+    */
     public function GetOwnInfos($id)
     {
         $infos = [];
-
-        $req = $this->connection->get_connection()->prepare(
+        // cherche le pseudo et la dernière date de connexion
+        $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
             'SELECT player_name, lastLog FROM player WHERE id LIKE :id'
         );
         $req->execute([
@@ -25,7 +27,8 @@ class ModelProfile
         $infos['username'] = $res['player_name'];
         $infos['lastLog'] = $res['lastLog'];
 
-        $req = $this->connection->get_connection()->prepare(
+        // cherche l'id des puzzles créés par l'utilisateur connecté et les met dans un tableau
+        $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
             'SELECT id FROM puzzle WHERE creator LIKE :id'
         );
         $req->execute([
@@ -41,11 +44,15 @@ class ModelProfile
 
         return $infos;
     }
+    /*
+    GetOtherInfos retourne les informations d'un utilisateur selon son id 
+    */
     public function GetOtherInfos($id)
     {
         $infos = [];
 
-        $req = $this->connection->get_connection()->prepare(
+        // cherche le pseudo
+        $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
             'SELECT player_name FROM player WHERE id LIKE :id'
         );
         $req->execute([
@@ -54,7 +61,8 @@ class ModelProfile
         $res = $req->fetch();
         $infos['username'] = $res['player_name'];
 
-        $req = $this->connection->get_connection()->prepare(
+        // cherche les id des puzzles créés par l'utilisateur et les met dans un tableau
+        $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
             'SELECT id FROM puzzle WHERE creator LIKE :id'
         );
         $req->execute([

@@ -1,5 +1,7 @@
 <?php
-
+/*
+template des classes de type modèle
+*/
 namespace Application\Model\;
 
 require_once('src/lib/database.php');

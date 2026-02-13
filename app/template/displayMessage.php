@@ -6,8 +6,8 @@
 ?>
 
 <main>
-    <div id="error">
-        <?php echo $errorMessage; ?>
+    <div id="displayMessage">
+        <?php echo $message; ?>
         <a href="./index.php">Retour à l'accueil</a>
     </div>
 </main>

@@ -14,7 +14,7 @@ class ControllerUpdateInfos
 {
     public function execute(?array $input)
     {
-        $connection = new DatabaseConnection;
+        $connection = new DatabaseConnection();
 
         // vérifie que l'ancien mot de passe est le bon en utilisant l'objet 'logIn'
 
@@ -27,8 +27,8 @@ class ControllerUpdateInfos
 
         if($logIn->LogIn($inputToCheck) == 0) // l'authentification échoue
         {
-            $errorMessage = "Pseudo ou mot de passe éronné";
-            require('template/error.php');
+            $message = "Pseudo ou mot de passe éronné";
+            require('template/displayMessage.php');
         }
         else // l'authentification réussit
         {
@@ -38,8 +38,8 @@ class ControllerUpdateInfos
             
             if($res == -1) 
             {
-                $errorMessage = "Le pseudo n'est pas disponible";
-                require('template/error.php');
+                $message = "Le pseudo n'est pas disponible";
+                require('template/displayMessage.php');
             }
             else
             {
@@ -47,8 +47,8 @@ class ControllerUpdateInfos
                 {
                     $_SESSION['username'] = $input['username'];
                 }
-                $errorMessage = "Informations modifiées !";
-                require('template/error.php');
+                $message = "Informations modifiées !";
+                require('template/displayMessage.php');
             }
         }
     }

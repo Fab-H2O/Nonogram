@@ -15,7 +15,7 @@ class ModelUpdateInfos
     {
         if($input['username'] != $_SESSION['username']) // si le nouveau pseudo est différent de l'actuel : vérifie si le nouveau pseudo existe déja dans la base de donnée
         {   
-            $req = $this->connection->get_connection()->prepare(
+            $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
                 "SELECT count(*) FROM player WHERE player_name = :username"
             );
             $req->execute([
@@ -28,9 +28,9 @@ class ModelUpdateInfos
             {
                 return -1;
             }
-            else 
+            else // si non : le nouveau pseudo remplace l'ancien
             {
-                $req = $this->connection->get_connection()->prepare(
+                $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
                     "UPDATE player SET player_name = :new_name WHERE id = :id;"
                 );
                 $req->execute([
@@ -44,7 +44,7 @@ class ModelUpdateInfos
         if(!empty($input['newPassword']))
         {
             $newPassword = password_hash($input['newPassword'], PASSWORD_DEFAULT);
-            $req = $this->connection->get_connection()->prepare(
+            $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
                 "UPDATE player SET player_pwd = :new_password WHERE id = :id;"
             );
             $req->execute([

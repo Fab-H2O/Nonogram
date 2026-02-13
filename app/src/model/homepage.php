@@ -10,9 +10,12 @@ class ModelHomepage
 {
     public DatabaseConnection $connection;
 
+    /* 
+    GetUsername retourne le pseudo de l'utilisateur connecté 
+    */
     public function GetUsername(int $id): string
     {
-        $req = $this->connection->get_connection()->prepare(
+        $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
             "SELECT player_name FROM player WHERE player.id = :id"
         );
         $req->execute([

@@ -12,7 +12,7 @@ class ModelLogIn
     
     public function LogIn(array $input): int
     {
-        $req = $this->connection->get_connection()->prepare(
+        $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
             'SELECT id, player_pwd FROM player WHERE player_name LIKE :username '
         );
         $req->execute([
@@ -34,7 +34,7 @@ class ModelLogIn
         if(password_verify($input['password'], $res['player_pwd']))
         {
             //met à jour la date de connexion    
-            $req = $this->connection->get_connection()->prepare(
+            $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
                 'UPDATE player SET lastLog = NOW() WHERE id = :id'
             );
             $req->execute([
