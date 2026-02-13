@@ -46,8 +46,11 @@ button{
 #nono-stock {
     display: grid;
     grid-template-columns: repeat(5, 5fr);
-    max-width: 10%;
-    border: 2px solid purple;
+    max-width: 100%;
+    border: 1px solid purple;
     cursor: pointer;
 }
 /* reapet */
+#nono-stock > div {
+    border: 1px solid purple;
+}
