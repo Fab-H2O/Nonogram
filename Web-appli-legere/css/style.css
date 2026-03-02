@@ -45,10 +45,11 @@ button{
 
 #nono-stock {
     display: grid;
-    grid-template-columns: repeat(5, 5fr);
+    grid-template-columns: repeat(5, 1fr);
     max-width: 100%;
     border: 1px solid purple;
     cursor: pointer;
+    aspect-ratio: 1/1;
 }
 /* reapet */
 #nono-stock > div {
