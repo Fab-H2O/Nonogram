@@ -1,15 +1,14 @@
 package fabTimAlex.nonogram;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
 
-public class LoginForm extends javax.swing.JFrame {
+public class ConnexionForm extends javax.swing.JFrame {
 
     // Defined Logger and DB URL (Kept from your code)
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ConnexionForm.class.getName());
     static final String DB_URL = "jdbc:mysql://localhost/nonogram";
 
 
@@ -17,7 +16,7 @@ public class LoginForm extends javax.swing.JFrame {
     /**
      * Creates new form LoginForm
      */
-    public LoginForm() {
+    public ConnexionForm() {
         initComponents();
         
         // add button listener
@@ -34,7 +33,7 @@ public class LoginForm extends javax.swing.JFrame {
         Connection conn = null;
         Statement stmt = null;
 
-        // on recupere les infos
+        // on recupere les infos l'identifiant
         String user = jTextFieldUser.getText();
         // getPassword() est plus securiser getText()
         String pass = new String(jPasswordFieldPass.getPassword()); 
@@ -55,7 +54,7 @@ public class LoginForm extends javax.swing.JFrame {
             // this.dispose();
 
         } catch (SQLException se) {
-            // Display error in the GUI so the user sees it
+            // affiche message d'erreur pour que l'utilisateur voit
             jTextArea1.append("Erreur de connexion : " + se.getMessage() + "\n");
             se.printStackTrace();
         } catch (Exception e) {
@@ -166,7 +165,7 @@ public class LoginForm extends javax.swing.JFrame {
         }
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new ConnexionForm().setVisible(true));
     }
     
     // Variables declaration - do not modify                     
