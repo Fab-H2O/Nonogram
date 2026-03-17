@@ -12,16 +12,16 @@ class ControllerSignIn
 {
     public function execute(?array $input)
     {
-        $connection = new DatabaseConnection;
-        $sign = new ModelSign;
+        $connection = new DatabaseConnection();
+        $sign = new ModelSign();
         $sign->connection = $connection;
         
         $id = $sign->CreateNewUser($input);
 
         if($id < 0)
         {
-            $errorMessage = "Pseudo non disponible";
-            require('template/error.php');
+            $message = "Pseudo non disponible";
+            require('template/displayMessage.php');
         }
         else
         {
@@ -36,10 +36,11 @@ class ControllerSignOut
 {
     public function execute()
     {
-        $connection = new DatabaseConnection;
-        $signOut = new ModelSign;
+        $connection = new DatabaseConnection();
+        $sign = new ModelSign();
+        $sign->connection = $connection;
 
-        $signOut->SignOut($_SESSION['idUserLogged']);
+        $sign->SignOut($_SESSION['idUserLogged']);
         
         $url = "././index.php";
         header( "Location: $url" );

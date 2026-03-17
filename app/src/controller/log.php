@@ -13,21 +13,23 @@ class ControllerLogIn
 {
     public function execute(?array $input)
     {
-        $connection = new DatabaseConnection;
-        $logIn = new ModelLogIn;
+        $connection = new DatabaseConnection();
+        $logIn = new ModelLogIn();
         $logIn->connection = $connection;
+        
         $idUser = $logIn->LogIn($input);
         
         if($idUser > 0)
         {
             $_SESSION['idUserLogged'] = $idUser;
+            $_SESSION['dbUser'] = 'root';
             $url = "././index.php";
             header( "Location: $url" );
         }
         else
         {
-            $errorMessage = "Pseudo ou mot de passe éronné";
-            require('template/error.php');
+            $message = "Pseudo ou mot de passe éronné";
+            require('template/displayMessage.php');
         } 
     }
 }

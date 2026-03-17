@@ -33,6 +33,7 @@ header, .headerbox, .boxHeadLine {
 }
 .form {
     display: none;
+    padding: 1em;
 }
 #error, .displayUserInfos {
     display: flex;
