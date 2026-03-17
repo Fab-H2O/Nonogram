@@ -4,10 +4,6 @@
 .nono-carre = grille autour du nonogramme
 #nono-stock = carrée de nonongramme */
 
-*{
-    display: center;
-    /*font-style: ;*/
-}
 
 main{
     text-align: center;
@@ -48,10 +44,24 @@ button{
     grid-template-columns: repeat(5, 1fr);
     max-width: 100%;
     border: 1px solid purple;
-    cursor: pointer;
     aspect-ratio: 1/1;
+    min-height: 50%;
+    grid-area: auto;
+    grid-template-areas: none;
 }
 /* reapet */
 #nono-stock > div {
     border: 1px solid purple;
+    /*width: 30%;
+    height: 30%;
+    margin-top: 20%;
+    margin-left: 20%;*/
+    cursor: pointer;
+}
+
+#colonne {
+    width: 10px;
+}
+#ligne {
+    width: 10px;
 }

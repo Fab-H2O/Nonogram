@@ -11,13 +11,76 @@
 function zero(max) {
     return Math.floor(Math.random() * max);
 }
-console.log(zero(2));
+function hauttab(t, l) {
+    var un = 0;
+    const z = 0;
+    const tab = t;
+    const number = [];
+    const numberdeux = [];
+    const longreur = l;
+
+    //ligne
+    for (let i = 0; i <= 25; i++) {
+        valeur = tab[i];
+        if (i % 5 == 0) {
+            if (un != 0) {
+                number.push(un);
+                un = 0;
+                if (i > 0 && i < 25) {
+                    number.push("space");
+                }
+            } else if (un == 0) {
+                if (i > 0 && i < 25) {
+                    number.push("space");
+                }
+            }
+        } if (valeur == 1) {
+            un += 1;
+        } else if (un != 0) {
+            if (valeur == 0) {
+                number.push(un);
+                un = 0;
+            } else if (i == 25) {
+                number.push(un);
+                un = 0;
+            }
+        }
+    }
+
+    //colonne
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0 + i; j <= 25; j = j + 5) {
+            valeur = tab[j];
+            if (valeur == 1) {
+                un++;
+            } if (valeur == 0 && un != 0) {
+                numberdeux.push(un);
+                un = 0;
+            } else if (j == 25 && un != 0 && valeur != 0) {
+                numberdeux.push(un);
+                un = 0;
+            }
+
+        }
+        if ( un != 0) {
+            numberdeux.push(un);
+            un = 0;
+        }
+        if (i < 4) {
+            numberdeux.push("space");
+        }
+    }
+
+    console.log("ligne " + number);
+    console.log("colonne " + numberdeux);
+    return number, numberdeux;
+}
 
 //5
 cinq = document.getElementById('5')
-cinq.addEventListener ('click', () => {
+cinq.addEventListener('click', () => {
     console.log("5");
-    
+
     const style = document.createElement("style");
     style.textContent = `
     #nono-stock {
@@ -32,17 +95,23 @@ cinq.addEventListener ('click', () => {
 
     const container = document.getElementById("nono-stock");
     container.innerHTML = "";
-    
-    for (let i=0; i < 25; i++){
+
+    var tab = []
+    for (let i = 0; i < 25; i++) {
         const cell = document.createElement("div");
-        cell.textContent = zero(2);
-        container.appendChild(cell)
+        const valeur = zero(2);
+        cell.textContent = valeur;
+        container.appendChild(cell);
+        tab.push(valeur);
     };
+    const longreur = tab.length
+    console.log(tab)
+    hauttab(tab, 25)
 });
 
 //10
 dix = document.getElementById('10')
-dix.addEventListener ('click', () => {
+dix.addEventListener('click', () => {
     console.log("10")
 
     const style = document.createElement("style");
@@ -59,8 +128,8 @@ dix.addEventListener ('click', () => {
 
     const container = document.getElementById("nono-stock");
     container.innerHTML = "";
-    
-    for (let i=0; i < 100; i++){
+
+    for (let i = 0; i < 100; i++) {
         const cell = document.createElement("div");
         cell.textContent = zero(2);
         container.appendChild(cell)
@@ -69,7 +138,7 @@ dix.addEventListener ('click', () => {
 
 //20
 vint = document.getElementById('20')
-vint.addEventListener ('click', () => {
+vint.addEventListener('click', () => {
     console.log("20")
 
     const style = document.createElement("style");
@@ -86,17 +155,16 @@ vint.addEventListener ('click', () => {
 
     const container = document.getElementById("nono-stock");
     container.innerHTML = "";
-    
-    for (let i=0; i < 400; i++){
+    for (let i = 0; i < 400; i++) {
         const cell = document.createElement("div");
         cell.textContent = zero(2);
-        container.appendChild(cell)
+        container.appendChild(cell);
     };
 });
 
 //30
 trente = document.getElementById('30')
-trente.addEventListener ('click', () => {
+trente.addEventListener('click', () => {
     console.log("30")
 
     const style = document.createElement("style");
@@ -113,8 +181,8 @@ trente.addEventListener ('click', () => {
 
     const container = document.getElementById("nono-stock");
     container.innerHTML = "";
-    
-    for (let i=0; i < 900; i++){
+
+    for (let i = 0; i < 900; i++) {
         const cell = document.createElement("div");
         cell.textContent = zero(2);
         container.appendChild(cell)
@@ -123,7 +191,7 @@ trente.addEventListener ('click', () => {
 
 //random
 random = document.getElementById('random')
-random.addEventListener ('click', () => {
+random.addEventListener('click', () => {
     console.log("random")
 
     const style = document.createElement("style");
@@ -140,8 +208,8 @@ random.addEventListener ('click', () => {
 
     const container = document.getElementById("nono-stock");
     container.innerHTML = "";
-    
-    for (let i=0; i < 25; i++){
+
+    for (let i = 0; i < 25; i++) {
         const cell = document.createElement("div");
         cell.textContent = zero(2);
         container.appendChild(cell)
@@ -150,7 +218,7 @@ random.addEventListener ('click', () => {
 
 //editeur
 editer = document.getElementById('editeur')
-editer.addEventListener ('click', () => {
+editer.addEventListener('click', () => {
     console.log("editeur")
 
     const style = document.createElement("style");
@@ -167,8 +235,8 @@ editer.addEventListener ('click', () => {
 
     const container = document.getElementById("nono-stock");
     container.innerHTML = "";
-    
-    for (let i=0; i < 25; i++){
+
+    for (let i = 0; i < 25; i++) {
         const cell = document.createElement("div");
         cell.textContent = zero(2);
         container.appendChild(cell)
@@ -177,13 +245,13 @@ editer.addEventListener ('click', () => {
 
 //try again
 again = document.getElementById('try')
-again.addEventListener ('click', () => {
+again.addEventListener('click', () => {
     console.log("try again")
 
     const container = document.getElementById("nono-stock");
     container.innerHTML = "";
-    
-    for (let i=0; i < 25; i++){
+
+    for (let i = 0; i < 25; i++) {
         const cell = document.createElement("div");
         cell.textContent = zero(2);
         container.appendChild(cell)
