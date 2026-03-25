@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fabtimalex.nonogramlourd.DatatableController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fabtimalex.nonogramlourd.DatatableController">
    <left>
       <AnchorPane prefHeight="374.0" prefWidth="24.0" BorderPane.alignment="CENTER" />
    </left>
@@ -18,12 +18,12 @@
          <children>
             <TableView fx:id="table" layoutY="65.0" prefHeight="282.0" prefWidth="410.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn prefWidth="75.0" />
+                <TableColumn prefWidth="75.0" />
               </columns>
             </TableView>
-            <TextField fx:id="requeteDatabase" layoutX="61.0" layoutY="26.0" prefHeight="25.0" prefWidth="262.0" />
-            <Button fx:id="suppDatabase" layoutX="332.0" layoutY="27.0" mnemonicParsing="false" text="DELETE" textFill="RED">
+            <TextField id="QuerySQLbox" fx:id="requeteDatabase" layoutX="61.0" layoutY="26.0" prefHeight="25.0" prefWidth="262.0" />
+            <Button id="supprimExecute" fx:id="suppDatabase" layoutX="332.0" layoutY="27.0" mnemonicParsing="false" text="DELETE" textFill="RED">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
