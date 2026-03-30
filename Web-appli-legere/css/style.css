@@ -37,6 +37,7 @@ button{
     margin-top: 2%;
     border: 1px solid black;
     border-radius: 2%;
+    /*grid: repeat(3,80px) / auto-flow;*/
 }
 
 #nono-stock {
@@ -46,8 +47,7 @@ button{
     border: 1px solid purple;
     aspect-ratio: 1/1;
     min-height: 50%;
-    grid-area: auto;
-    grid-template-areas: none;
+    background-color: violet;
 }
 /* reapet */
 #nono-stock > div {
@@ -59,9 +59,9 @@ button{
     cursor: pointer;
 }
 
-#colonne {
+/*#colonne {
     width: 10px;
 }
 #ligne {
     width: 10px;
-}
+}*/

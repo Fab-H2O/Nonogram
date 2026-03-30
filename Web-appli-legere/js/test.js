@@ -18,7 +18,7 @@ function hauttab(t, l) {
     const number = [];
     const numberdeux = [];
     const longreur = l;
-
+    
     //ligne
     for (let i = 0; i <= 25; i++) {
         valeur = tab[i];
@@ -46,7 +46,7 @@ function hauttab(t, l) {
             }
         }
     }
-
+    
     //colonne
     for (let i = 0; i < 5; i++) {
         for (let j = 0 + i; j <= 25; j = j + 5) {
@@ -60,7 +60,7 @@ function hauttab(t, l) {
                 numberdeux.push(un);
                 un = 0;
             }
-
+            
         }
         if ( un != 0) {
             numberdeux.push(un);
@@ -70,11 +70,47 @@ function hauttab(t, l) {
             numberdeux.push("space");
         }
     }
-
+    
     console.log("ligne " + number);
     console.log("colonne " + numberdeux);
+
+    lignev2 = "";
+    colonnev2 = "";
+    colonnev3 = "";
+   
+    for (let i = 0; i < number.length; i++) {
+        valeur = number[i];
+        if (valeur != "space"){
+            lignev2 = lignev2 + valeur + " ";
+        }else {
+            lignev2 = lignev2 + "<br>";
+        };
+    }
+    // probleme ici
+    for (let i = 0; i < numberdeux.length; i++) {
+        valeur = numberdeux[i]
+        if (valeur != "space") {
+            colonnev2 = colonnev2 + valeur + " ";
+        }else {
+            colonnev2 = colonnev2 + " / ";    
+        };
+    }
+    console.log("lignev2 " + lignev2);
+    console.log("coloneV2 " + colonnev2);
+
+    const ligne1 = document.getElementById("ligne");
+    ligne1.innerHTML = lignev2;
+
+    const colonne1 = document.getElementById("colonne");
+    colonne1.innerHTML = colonnev2;
+
     return number, numberdeux;
 }
+
+click = document.getElementById('nono-stock')
+click.addEventListener('click', () => {
+    console.log("click")
+})
 
 //5
 cinq = document.getElementById('5')
@@ -106,7 +142,7 @@ cinq.addEventListener('click', () => {
     };
     const longreur = tab.length
     console.log(tab)
-    hauttab(tab, 25)
+    ligne, colonne = hauttab(tab, 25)
 });
 
 //10
@@ -254,6 +290,6 @@ again.addEventListener('click', () => {
     for (let i = 0; i < 25; i++) {
         const cell = document.createElement("div");
         cell.textContent = zero(2);
-        container.appendChild(cell)
+        container.appendChild(cell);
     };
 });
