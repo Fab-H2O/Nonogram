@@ -15,7 +15,7 @@ class DatabaseConnection
         $pass = "";
         $user = $dbUser;
         
-        if($user == 'root') 
+        if ($user == 'root') 
         {
             $pass = 'root';
         }

@@ -1,12 +1,16 @@
 <?php 
     $title = "Picross - Accueil";
-    $scripts = "<script type=\"module\" src=\"src/js/homepage.js\"></script>";
+    $scripts = "<script type=\"module\" src=\"src/js/homepage.js\" defer></script>";
     ob_start();
     require_once('header.php'); 
 ?>
 
 <main>
-    <H2>Ceci est la page d'accueil</H2>
+    <button id="playPuzzle">Jouer un puzzle</button>
+    <div id="puzzlesList"></div>
+    <div id="picrossBox" class="centered" style="display : none">
+        
+    </div>
 </main>
 
 <?php 

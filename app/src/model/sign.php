@@ -9,10 +9,15 @@ use Application\Lib\Database\DatabaseConnection;
 class ModelSign
 {
     public DatabaseConnection $connection;
+    
+    public function __construct(DatabaseConnection $connection)
+    {
+        $this->connection = $connection;
+    }
     /*
     CreateNewUser créé un nounelle entrée dans la table 'player' avec les données '$input' passées en paramètres
     */
-    public function CreateNewUser(array $input): int
+    public function createNewUser(array $input): int
     {
         //vérifie si le pseudo existe déja dans la base de donnée   
         $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
@@ -43,7 +48,7 @@ class ModelSign
     SignOut modifie la valeur 'sign_out' de l'entrée d'un player selon son id => cela signale que le player souhaite que l'admin
     supprime son compte.
     */
-    public function SignOut(int $id)
+    public function signOut(int $id)
     {
         $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
             "UPDATE player SET sign_out = 1 WHERE id = :id;"

@@ -13,10 +13,9 @@ class ControllerSignIn
     public function execute(?array $input)
     {
         $connection = new DatabaseConnection();
-        $sign = new ModelSign();
-        $sign->connection = $connection;
+        $sign = new ModelSign($connection);
         
-        $id = $sign->CreateNewUser($input);
+        $id = $sign->createNewUser($input);
 
         if($id < 0)
         {
@@ -37,10 +36,9 @@ class ControllerSignOut
     public function execute()
     {
         $connection = new DatabaseConnection();
-        $sign = new ModelSign();
-        $sign->connection = $connection;
+        $sign = new ModelSign($connection);
 
-        $sign->SignOut($_SESSION['idUserLogged']);
+        $sign->signOut($_SESSION['idUserLogged']);
         
         $url = "././index.php";
         header( "Location: $url" );

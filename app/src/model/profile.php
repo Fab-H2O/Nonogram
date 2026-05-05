@@ -9,10 +9,16 @@ use Application\Lib\Database\DatabaseConnection;
 class ModelProfile
 {
     public DatabaseConnection $connection;
+    
+    public function __construct(DatabaseConnection $connection)
+    {
+        $this->connection = $connection;
+    }
+
     /*
     GetOwnInfos retourne les informations concernant l'utilisateur connecté.
     */
-    public function GetOwnInfos($id)
+    public function getOwnInfos($id)
     {
         $infos = [];
         // cherche le pseudo et la dernière date de connexion
@@ -47,7 +53,7 @@ class ModelProfile
     /*
     GetOtherInfos retourne les informations d'un utilisateur selon son id 
     */
-    public function GetOtherInfos($id)
+    public function getOtherInfos($id)
     {
         $infos = [];
 

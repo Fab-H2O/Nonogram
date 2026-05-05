@@ -18,22 +18,23 @@ class ControllerPuzzle
     public function execute(?array $input)
     {
         $connection = new DatabaseConnection();
+
         if($input['action'] == 'add') 
         {
-            $add = new ModelAddPuzzle();
-            $add->connection = $connection;
-            // aller vers la page du puzzle
+            $add = new ModelAddPuzzle($connection);
+            $message = $add->addPuzzle($input);
+            require('template/displayMessage.php');
         } 
         else if ($input['action'] == 'remove')
         {
-            $remove = new ModelRemovePuzzle();
+            $remove = new ModelRemovePuzzle($connection);
             $remove->connection = $connection;
             $message = $remove->removePuzzle($input);
             require('template/displayMessage.php');
         }
         else if($input['action'] == 'get')
         {
-            $get = new ModelGetPuzzle();
+            $get = new ModelGetPuzzle($connection);
             $get->connection = $connection;
             $puzzle = $get->getPuzzle($input);
             require('template/puzzle.php');
