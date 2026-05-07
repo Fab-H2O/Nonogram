@@ -1,0 +1,44 @@
+#picross {
+    border: 1px solid black;
+}
+#picrossBox, #boxTop, #boxBottom, #rowsClues, #colsClues, .colClues {
+    display: flex;
+}
+#picrossBox {
+    background-image: url("../img/background_grey2.png");
+    background-repeat: repeat;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#picrossBox {
+    align-items: flex-end;
+}
+#rowsClues, #colsClues  {
+    align-items: flex-end;
+}
+#colsClues, #boxBottom {
+    flex-direction: row;
+}
+#boxTop, .rowClues {
+    flex-direction: row-reverse;
+}
+.colClues {
+    flex-direction: column-reverse;
+}
+#picrossBox, #rowsClues{
+    flex-direction: column;
+}
+.rowClues{
+    display:inline;
+    height: 30px;
+    padding-right: 2px;
+    vertical-align: middle;
+}
+.colClues {
+    text-align: center;
+    width: 30px;
+}
+canvas {
+    background-color: white;
+}

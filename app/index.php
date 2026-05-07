@@ -64,7 +64,7 @@ try {
         else if($_GET['action'] === 'puzzle')
         {
             $input = null;
-            if($_Server['REQUEST_METHOD'] === 'POST') {
+            if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $input = $_POST;
             }
             (new ControllerPuzzle())->execute($input);

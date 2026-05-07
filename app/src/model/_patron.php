@@ -14,7 +14,7 @@ class Model
     
     public function (): 
     {
-        $req = $this->connection->get_connection()->prepare(
+        $req = $this->connection->getConnection()->prepare(
             ""
         );
         $req->execute([

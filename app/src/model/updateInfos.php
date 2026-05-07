@@ -11,7 +11,12 @@ class ModelUpdateInfos
 {
     public DatabaseConnection $connection;
     
-    public function UpdateUserInfos(array $input): int
+    public function __construct(DatabaseConnection $connection)
+    {
+        $this->connection = $connection;
+    }
+    
+    public function updateUserInfos(array $input): int
     {
         if($input['username'] != $_SESSION['username']) // si le nouveau pseudo est différent de l'actuel : vérifie si le nouveau pseudo existe déja dans la base de donnée
         {   

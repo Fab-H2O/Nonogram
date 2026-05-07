@@ -10,7 +10,12 @@ class ModelLogIn
 {
     public DatabaseConnection $connection;
     
-    public function LogIn(array $input): int
+    public function __construct(DatabaseConnection $connection)
+    {
+        $this->connection = $connection;
+    }
+    
+    public function logIn(array $input): int
     {
         $req = $this->connection->getConnection($_SESSION['dbUser'])->prepare(
             'SELECT id, player_pwd FROM player WHERE player_name LIKE :username '

@@ -15,16 +15,14 @@ class ControllerProfile
         $connection = new DatabaseConnection();
         if(isset($_SESSION['idUserLogged']) && $input['idUser'] == $_SESSION['idUserLogged']) 
         {
-            $profile = new ModelProfile();
-            $profile->connection = $connection;
-            $infos = $profile->GetOwnInfos($input['idUser']);
+            $profile = new ModelProfile($connection);
+            $infos = $profile->getOwnInfos($input['idUser']);
             require('template/profileOwn.php');
         }
         else
         {
-            $profile = new ModelProfile();
-            $profile->connection = $connection;
-            $infos = $profile->GetOtherInfos($input['idUser']);
+            $profile = new ModelProfile($connection);
+            $infos = $profile->getOtherInfos($input['idUser']);
             require('template/profileOther.php');
         }
     }

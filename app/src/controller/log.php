@@ -14,10 +14,10 @@ class ControllerLogIn
     public function execute(?array $input)
     {
         $connection = new DatabaseConnection();
-        $logIn = new ModelLogIn();
-        $logIn->connection = $connection;
         
-        $idUser = $logIn->LogIn($input);
+        $logIn = new ModelLogIn($connection);
+        
+        $idUser = $logIn->logIn($input);
         
         if($idUser > 0)
         {

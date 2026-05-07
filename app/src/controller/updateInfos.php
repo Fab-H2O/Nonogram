@@ -22,19 +22,18 @@ class ControllerUpdateInfos
             "username" => $_SESSION['username'],
             "password" => $input['oldPassword']
         ];
-        $logIn = new ModelLogIn();
-        $logIn->connection = $connection;
+        $logIn = new ModelLogIn($connection);
 
-        if($logIn->LogIn($inputToCheck) == 0) // l'authentification échoue
+        if($logIn->logIn($inputToCheck) == 0) // l'authentification échoue
         {
             $message = "Pseudo ou mot de passe éronné";
             require('template/displayMessage.php');
         }
         else // l'authentification réussit
         {
-            $updateInfos = new ModelUpdateInfos();
-            $updateInfos->connection = $connection;
-            $res = $updateInfos->UpdateUserInfos($input);
+            $updateInfos = new ModelUpdateInfos($connection);
+
+            $res = $updateInfos->updateUserInfos($input);
             
             if($res == -1) 
             {
