@@ -16,23 +16,25 @@
    <center>
       <AnchorPane prefHeight="400.0" prefWidth="404.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="table" layoutY="65.0" prefHeight="282.0" prefWidth="410.0">
+            <TableView fx:id="table" layoutX="18.0" layoutY="73.0" prefHeight="454.0" prefWidth="560.0">
               <columns>
                 <TableColumn prefWidth="75.0" />
                 <TableColumn prefWidth="75.0" />
               </columns>
             </TableView>
-            <TextField id="QuerySQLbox" fx:id="requeteDatabase" layoutX="61.0" layoutY="26.0" prefHeight="25.0" prefWidth="262.0" />
-            <Button id="supprimExecute" fx:id="suppDatabase" layoutX="332.0" layoutY="27.0" mnemonicParsing="false" text="DELETE" textFill="RED">
+            <TextField id="QuerySQLbox" fx:id="requeteDatabase" layoutX="157.0" layoutY="25.0" prefHeight="25.0" prefWidth="262.0" />
+            <Button id="supprimExecute" fx:id="suppDatabase" layoutX="428.0" layoutY="26.0" mnemonicParsing="false" text="DELETE" textFill="RED">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Label layoutX="14.0" layoutY="29.0" text="Select">
+            <Label layoutX="110.0" layoutY="28.0" text="Select">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <Button id="PreviousUserlist" layoutX="18.0" layoutY="549.0" mnemonicParsing="false" text="Display previous 15 users" />
+            <Button id="NextUserlist" layoutX="450.0" layoutY="549.0" mnemonicParsing="false" text="Display next 15 users" />
          </children>
       </AnchorPane>
    </center>
@@ -42,9 +44,9 @@
    <top>
       <AnchorPane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="tablePlayer" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#showPlayerTable" text="Table Player" />
-            <Button fx:id="tableNonogram" layoutX="142.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchDisplay" text="Table Nonogram" />
-            <Button fx:id="tableScore" layoutX="287.0" layoutY="14.0" mnemonicParsing="false" onAction="#showScoreTable" text="Table score" />
+            <Button fx:id="tablePlayer" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#showPlayerTable" text="Table Player" />
+            <Button fx:id="tableNonogram" layoutX="272.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchDisplay" text="Table Nonogram" />
+            <Button fx:id="tableScore" layoutX="559.0" layoutY="12.0" mnemonicParsing="false" onAction="#showScoreTable" text="Table score" />
          </children>
       </AnchorPane>
    </top>
