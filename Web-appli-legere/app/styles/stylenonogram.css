@@ -65,7 +65,7 @@ main {
     background: black;
 }
 
-/* Cellules d’indice */
+/* Cellules d’indice 
 #colonne div,
 #ligne div {
     display: flex;
@@ -73,3 +73,4 @@ main {
     align-items: center;
     font-size: 12px;
 }
+*/

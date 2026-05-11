@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nonograms</title>
-    <link rel="stylesheet" href="/style.css">
-    <script defer src="/test.js"></script>
-</head>
-<body>
+<?php 
+    $title = "Picross - Accueil";
+    $scripts = "<script type=\"module\" src=\"src/js/homepage.js\" defer></script>";
+    $scripts = "<script type=\"module\" src=\"src/js/test.js\" defer></script>";
+    ob_start();
+    require_once('header.php'); 
+?>
 
 <main>
+    <button id="playPuzzle">Jouer un puzzle</button>
+    <div id="puzzlesList"></div>
+    <div id="picrossBox" class="centered" style="display : none">
+        
+    </div>
     <h1 id="titre">Nonograms</h1>
 
     <!--grille et indice-->
@@ -29,5 +31,7 @@
     </div>
 </main>
 
-</body>
-</html>
+<?php 
+    $content = ob_get_clean();
+    require('layout.php');
+?>

@@ -123,7 +123,7 @@ function checkWin() {
 
     // Gagné 
     gameLocked = true;
-    alert("🎉 Bravo Alex ! Tu as gagné !");
+    alert(" Bravo ! Tu as gagné !");
     document.getElementById("nono-stock").style.opacity = "0.5";
 }
 
