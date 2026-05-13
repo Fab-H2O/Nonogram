@@ -23,7 +23,7 @@
               </columns>
             </TableView>
             <TextField id="QuerySQLbox" fx:id="requeteDatabase" layoutX="157.0" layoutY="25.0" prefHeight="25.0" prefWidth="262.0" />
-            <Button id="supprimExecute" fx:id="suppDatabase" layoutX="428.0" layoutY="26.0" mnemonicParsing="false" text="DELETE" textFill="RED">
+            <Button id="ExecuteSQL" fx:id="ExecuteSQL" layoutX="428.0" layoutY="26.0" mnemonicParsing="false" onAction="#executeSQL" text="Execute SQL" textFill="BLACK">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -33,8 +33,8 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button id="PreviousUserlist" layoutX="18.0" layoutY="549.0" mnemonicParsing="false" text="Display previous 15 users" />
-            <Button id="NextUserlist" layoutX="450.0" layoutY="549.0" mnemonicParsing="false" text="Display next 15 users" />
+            <Button id="PreviousUserlist" fx:id="PreviousUserlist" layoutX="18.0" layoutY="549.0" mnemonicParsing="false" onAction="#previousPage" text="Display previous 10 users" />
+            <Button id="NextUserlist" fx:id="NextUserlist" layoutX="450.0" layoutY="549.0" mnemonicParsing="false" onAction="#nextPage" text="Display next 10 users" />
          </children>
       </AnchorPane>
    </center>

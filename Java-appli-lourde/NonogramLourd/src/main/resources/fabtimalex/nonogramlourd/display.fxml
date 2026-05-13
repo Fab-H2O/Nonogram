@@ -13,7 +13,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Canvas id="canvasNonogram" height="347.0" layoutX="25.0" layoutY="66.0" width="393.0" />
+            <Canvas fx:id="canvasNonogram" height="347.0" layoutX="25.0" layoutY="66.0" width="393.0" />
             <Label layoutX="107.0" layoutY="20.0" text="Afficheur de puzzle">
                <font>
                   <Font size="20.0" />
@@ -34,23 +34,23 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Label>
-            <Button id="deleteNonogram" layoutX="15.0" layoutY="612.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="59.0" text="Delete" textFill="RED">
+            <Button fx:id="deleteNonogram" layoutX="15.0" layoutY="612.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="30.0" prefWidth="59.0" text="Delete" textFill="RED">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
             <Button fx:id="returndatable" layoutX="120.0" layoutY="614.0" mnemonicParsing="false" onAction="#returnToDatatable" text="datatable" />
-            <Button id="previousbtn" layoutX="14.0" layoutY="314.0" mnemonicParsing="false" text="Previous" />
-            <Button id="nextbtn" layoutX="124.0" layoutY="313.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Next" />
-            <Line endY="552.0" layoutY="99.0" startY="-97.4000015258789" />
+            <Button fx:id="previousbtn" layoutX="14.0" layoutY="314.0" mnemonicParsing="false" onAction="#handlePrevious" text="Previous" />
+            <Button fx:id="nextbtn" layoutX="124.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleNext" prefHeight="26.0" prefWidth="62.0" text="Next" />
+            <Line endY="552.0" layoutX="1.0" layoutY="99.0" startY="-97.4000015258789" />
             <Label layoutX="15.0" layoutY="22.0" text="ID puzzle:" />
-            <Label id="puzzleID" layoutX="75.0" layoutY="22.0">
+            <Label fx:id="puzzleID" layoutX="75.0" layoutY="22.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <Label layoutX="15.0" layoutY="53.0" text="Creator name :" />
-            <Label id="CreatorName" layoutX="107.0" layoutY="53.0">
+            <Label fx:id="CreatorName" layoutX="107.0" layoutY="53.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

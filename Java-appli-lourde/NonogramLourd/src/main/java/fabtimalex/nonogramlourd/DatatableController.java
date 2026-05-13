@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class DatatableController implements Initializable {
-    // element graphic de la page, ce sont les ID que j'ai attribuer
     @FXML
     private Button tablePlayer;
 
@@ -34,20 +33,82 @@ public class DatatableController implements Initializable {
     private TextField requeteDatabase;
 
     @FXML
-    private Button suppDatabase;
+    private Button ExecuteSQL;
+
+    @FXML
+    private Button PreviousUserlist;
+
+    @FXML
+    private Button NextUserlist;
+
+    private String currentView = "player"; // Tracks if we are viewing "player" or "score"
+    private int currentOffset = 0;
+    private final int PAGE_SIZE = 10;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Init default view or just wait for user action
+        // Initial load
+        showPlayerTable(null);
     }
 
-    /**
-     * Affiche les joueurs dans la table
-     */
     @FXML
     private void showPlayerTable(ActionEvent event) {
+        currentView = "player";
+        currentOffset = 0;
+        loadPlayerData();
+    }
+
+    @FXML
+    private void showScoreTable(ActionEvent event) {
+        currentView = "score";
+        currentOffset = 0;
+        loadScoreData();
+    }
+
+    @FXML
+    private void executeSQL(ActionEvent event) {
+        String query = requeteDatabase.getText();
+        if (query == null || query.isEmpty()) return;
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nonogram", "root", "root");
+             Statement stmt = conn.createStatement()) {
+            
+            boolean isSelect = query.trim().toLowerCase().startsWith("select");
+            if (isSelect) {
+                stmt.executeQuery(query);
+            } else {
+                stmt.executeUpdate(query);
+            }
+            refreshTable();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void previousPage(ActionEvent event) {
+        if (currentOffset >= PAGE_SIZE) {
+            currentOffset -= PAGE_SIZE;
+            refreshTable();
+        }
+    }
+
+    @FXML
+    private void nextPage(ActionEvent event) {
+        currentOffset += PAGE_SIZE;
+        refreshTable();
+    }
+
+    private void refreshTable() {
+        if ("player".equals(currentView)) {
+            loadPlayerData();
+        } else if ("score".equals(currentView)) {
+            loadScoreData();
+        }
+    }
+
+    private void loadPlayerData() {
         table.getColumns().clear();
-        // definie le nom des colonnes pour la "table"
         TableColumn<Object, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
 
@@ -57,40 +118,34 @@ public class DatatableController implements Initializable {
         TableColumn<Object, String> signOutCol = new TableColumn<>("Sign Out");
         signOutCol.setCellValueFactory(new PropertyValueFactory<>("signOut"));
         
-        // on les definie pour l'affichage
         table.getColumns().addAll(nameCol, lastLogCol, signOutCol);
 
-        // creer une list pour contenir les donnes de la bdd dans la table visuel
         ObservableList<Object> data = FXCollections.observableArrayList();
 
-        // bon la c'est ecrit en dure pour l instant car on valider sa connexion c'est mauvais je sais, je ferais un fichier properties
-        //On fait une requete SQL 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nonogram", "root", "root")) {
-            String query = "SELECT player_name, lastLog, sign_out FROM player";
-            try (PreparedStatement pst = conn.prepareStatement(query);
-                 ResultSet rs = pst.executeQuery()) {
-                
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                while (rs.next()) {
-                    String name = rs.getString("player_name");
-                    java.sql.Date sqlDate = rs.getDate("lastLog");
-                    String dateStr = sqlDate != null ? sdf.format(sqlDate) : "N/A";
-                    String signOut = rs.getBoolean("sign_out") ? "Yes" : "No";
-
-                    data.add(new PlayerModel(name, dateStr, signOut));
+            String query = "SELECT player_name, lastLog, sign_out FROM player LIMIT ? OFFSET ?";
+            try (PreparedStatement pst = conn.prepareStatement(query)) {
+                pst.setInt(1, PAGE_SIZE);
+                pst.setInt(2, currentOffset);
+                try (ResultSet rs = pst.executeQuery()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    while (rs.next()) {
+                        String name = rs.getString("player_name");
+                        java.sql.Date sqlDate = rs.getDate("lastLog");
+                        String dateStr = sqlDate != null ? sdf.format(sqlDate) : "N/A";
+                        String signOut = rs.getBoolean("sign_out") ? "Yes" : "No";
+                        data.add(new PlayerModel(name, dateStr, signOut));
+                    }
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         table.setItems(data);
     }
 
-    @FXML
-    private void showScoreTable(ActionEvent event) {
+    private void loadScoreData() {
         table.getColumns().clear();
-
         TableColumn<Object, String> nameCol = new TableColumn<>("Player");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
 
@@ -105,26 +160,25 @@ public class DatatableController implements Initializable {
         ObservableList<Object> data = FXCollections.observableArrayList();
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nonogram", "root", "root")) {
-            // Join with player table to get the name instead of just the ID 
             String query = "SELECT p.player_name, s.score, s.puzzle " +
                            "FROM score s " +
-                           "JOIN player p ON s.player = p.id";
-                           
-            try (PreparedStatement pst = conn.prepareStatement(query);
-                 ResultSet rs = pst.executeQuery()) {
-                 
-                while (rs.next()) {
-                    String name = rs.getString("player_name");
-                    String score = String.valueOf(rs.getInt("score"));
-                    String puzzle = String.valueOf(rs.getInt("puzzle"));
-
-                    data.add(new ScoreModel(name, score, puzzle));
+                           "JOIN player p ON s.player = p.id " +
+                           "LIMIT ? OFFSET ?";
+            try (PreparedStatement pst = conn.prepareStatement(query)) {
+                pst.setInt(1, PAGE_SIZE);
+                pst.setInt(2, currentOffset);
+                try (ResultSet rs = pst.executeQuery()) {
+                    while (rs.next()) {
+                        String name = rs.getString("player_name");
+                        String score = String.valueOf(rs.getInt("score"));
+                        String puzzle = String.valueOf(rs.getInt("puzzle"));
+                        data.add(new ScoreModel(name, score, puzzle));
+                    }
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         table.setItems(data);
     }
 
