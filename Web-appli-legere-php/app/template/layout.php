@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="styles/picross.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/stylenonogram.css">
-    <?php echo $scripts ?>
     <title><?= $title ?></title>
 </head>
 <body>
     <div class="window centered">
         <?= $content ?>
     </div>
+    <?php echo $scripts ?>
 </body>
 </html>

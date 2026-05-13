@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+}
+
+main {
+    text-align: center;
+}
+
+#titre {
+    padding: 20px;
+}
+
+/* Conteneur global */
+.nono-carre {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    gap: 5px;
+    justify-content: center;
+    align-items: start;
+}
+
+/* Indices colonnes (haut) */
+#colonne {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    justify-items: center;
+    align-items: end;
+    width: calc(var(--cell) * var(--size));
+}
+
+/* Indices lignes (gauche) */
+#ligne {
+    grid-column: 1;
+    grid-row: 2;
+    display: grid;
+    justify-items: end;
+    align-items: center;
+    height: calc(var(--cell) * var(--size));
+}
+
+/* Grille principale */
+#nono-stock {
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    width: calc(var(--cell) * var(--size));
+    height: calc(var(--cell) * var(--size));
+    border: 2px solid black;
+    transition: opacity 0.3s;
+}
+
+#nono-stock .cell {
+    border: 1px solid black;
+    background: white;
+    cursor: pointer;
+}
+
+#nono-stock .cell.active {
+    background: black;
+}
+
+/* Cellules d’indice */
+#colonne div,
+#ligne div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}

@@ -67,3 +67,9 @@ matrices.forEach(element => {
     puzzlesList.appendChild(line);
 });
 
+jeux = document.getElementById('#nonogramJeux')
+jeux.addEventListener('click', () => {
+    window.open("")
+});
+
+

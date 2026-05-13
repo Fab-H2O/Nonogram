@@ -29,7 +29,9 @@ class ControllerHomepage
         
         $matrices = $homepage->getAllPuzzles();
         $json = json_encode($matrices);
-        echo "<script>const matrices = $json;</script>";
+        //echo "<script>const matrices = $json;</script>";//
+        $matricesScript = "<script>const matrices = $json;</script>";
+
 
         require('template/homepage.php');
     }

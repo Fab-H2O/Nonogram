@@ -1,14 +1,10 @@
-// contien la grille correcte
 let solution = [];
-// empeche de cliquer apres la victoire
 let gameLocked = false;
 
-// retourne un nombre aleatoire entre 0 et 1
 function zero(max) {
     return Math.floor(Math.random() * max);
 }
 
-// compte les groupe de 1 (couper par les 0)
 function hauttab(tab, size) {
     let lignes = [];
     let colonnes = [];
@@ -60,7 +56,7 @@ function hauttab(tab, size) {
 
 function createGrid(size) {
 
-    // Taille des cases selon la grille
+    // 🔥 Taille des cases selon la grille
     let cellSize = 20;
 
     if (size === 5) cellSize = 50;
@@ -68,11 +64,9 @@ function createGrid(size) {
     if (size === 20) cellSize = 22;
     if (size === 30) cellSize = 20;
 
-    // mise a jour du css
     document.documentElement.style.setProperty("--cell", cellSize + "px");
     document.documentElement.style.setProperty("--size", size);
 
-    // reinitialise la grille
     const container = document.getElementById("nono-stock");
     container.innerHTML = "";
     container.style.opacity = "1";
@@ -85,7 +79,6 @@ function createGrid(size) {
 
     const tab = [];
 
-    // genere les cases
     for (let i = 0; i < size * size; i++) {
         const valeur = zero(2);
         solution.push(valeur);
@@ -104,11 +97,9 @@ function createGrid(size) {
         container.appendChild(cell);
     }
 
-    // calcule indices
     hauttab(tab, size);
 }
 
-// verifie si le joueur a reproduit la solution
 function checkWin() {
     const cells = document.querySelectorAll("#nono-stock .cell");
 
@@ -121,9 +112,9 @@ function checkWin() {
         }
     }
 
-    // Gagné 
+    // 🎉 Gagné !
     gameLocked = true;
-    alert(" Bravo ! Tu as gagné !");
+    alert("🎉 Bravo Alex ! Tu as gagné !");
     document.getElementById("nono-stock").style.opacity = "0.5";
 }
 
@@ -133,7 +124,7 @@ document.getElementById("10").onclick = () => createGrid(10);
 document.getElementById("20").onclick = () => createGrid(20);
 document.getElementById("30").onclick = () => createGrid(30);
 
-// Bouton Random
+// 🔥 Bouton Random
 document.getElementById("random").onclick = () => {
     const sizes = [5, 10, 20, 30];
     const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
