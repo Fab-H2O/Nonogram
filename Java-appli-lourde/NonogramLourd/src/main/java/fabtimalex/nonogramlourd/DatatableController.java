@@ -41,14 +41,25 @@ public class DatatableController implements Initializable {
     @FXML
     private Button NextUserlist;
 
-    private String currentView = "player"; // Tracks if we are viewing "player" or "score"
+    @FXML
+    private Button unblockButton;
+
+    private String currentView = "player"; 
     private int currentOffset = 0;
     private final int PAGE_SIZE = 10;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initial load
+        // init
         showPlayerTable(null);
+
+        // rajout de la selection du listener
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection instanceof PlayerModel) {
+                PlayerModel player = (PlayerModel) newSelection;
+                System.out.println("Selected player from database: ID = " + player.getId() + ", Name = " + player.getPlayerName());
+            }
+        });
     }
 
     @FXML
@@ -117,24 +128,30 @@ public class DatatableController implements Initializable {
 
         TableColumn<Object, String> signOutCol = new TableColumn<>("Sign Out");
         signOutCol.setCellValueFactory(new PropertyValueFactory<>("signOut"));
+
+        TableColumn<Object, String> blockedCol = new TableColumn<>("Blocked");
+        blockedCol.setCellValueFactory(new PropertyValueFactory<>("blocked"));
+               
         
-        table.getColumns().addAll(nameCol, lastLogCol, signOutCol);
+        table.getColumns().addAll(nameCol, lastLogCol, signOutCol, blockedCol);
 
         ObservableList<Object> data = FXCollections.observableArrayList();
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nonogram", "root", "root")) {
-            String query = "SELECT player_name, lastLog, sign_out FROM player LIMIT ? OFFSET ?";
+            String query = "SELECT id, player_name, lastLog, sign_out, is_blocked FROM player LIMIT ? OFFSET ?";
             try (PreparedStatement pst = conn.prepareStatement(query)) {
                 pst.setInt(1, PAGE_SIZE);
                 pst.setInt(2, currentOffset);
                 try (ResultSet rs = pst.executeQuery()) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     while (rs.next()) {
+                        int id = rs.getInt("id");
                         String name = rs.getString("player_name");
                         java.sql.Date sqlDate = rs.getDate("lastLog");
                         String dateStr = sqlDate != null ? sdf.format(sqlDate) : "N/A";
                         String signOut = rs.getBoolean("sign_out") ? "Yes" : "No";
-                        data.add(new PlayerModel(name, dateStr, signOut));
+                        String blocked = rs.getBoolean("is_blocked") ? "Yes" : "No";
+                        data.add(new PlayerModel(id, name, dateStr, signOut, blocked));
                     }
                 }
             }
@@ -188,6 +205,29 @@ public class DatatableController implements Initializable {
             App.setRoot("display");
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void unblockSelectedUser(ActionEvent event) {
+        Object selected = table.getSelectionModel().getSelectedItem();
+        if (selected instanceof PlayerModel) {
+            PlayerModel player = (PlayerModel) selected;
+            int playerId = player.getId();
+            System.out.println("Unblocking player: ID = " + playerId + ", Name = " + player.getPlayerName());
+            // debloque l'utilisateur bloquer a cause des tentatives, remet a 0 dans la BDD
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nonogram", "root", "root")) {
+                String query = "UPDATE player SET is_blocked = 0, tentative_connexion = 0 WHERE id = ?";
+                try (PreparedStatement pst = conn.prepareStatement(query)) {
+                    pst.setInt(1, playerId);
+                    pst.executeUpdate();
+                }
+                refreshTable();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            System.out.println("No player selected or selected item is not a player.");
         }
     }
 }

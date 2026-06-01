@@ -45,7 +45,7 @@ public class DisplayController implements Initializable {
     }
 
     /**
-     * Charge un puzzle depuis la base de données selon l'offset (pas de 1)
+     * Charge un puzzle depuis la base de données selon l'offset pas de 1
      */
     private void loadPuzzle(int offset) {
         if (offset < 0) return;
@@ -71,8 +71,7 @@ public class DisplayController implements Initializable {
                         drawNonogram(matrice);
                         currentPuzzleOffset = offset;
                     } else {
-                        // Si on est a la fin de la liste, on ne fait rien ou on boucle?
-                        // L'utilisateur demande juste de naviguer.
+                        // Si on est a la fin de la liste, on ne fait rien ou on boucle
                         if (offset == 0) {
                             // Pas de puzzles du tout
                             puzzleID.setText("N/A");
@@ -109,7 +108,7 @@ public class DisplayController implements Initializable {
             try (PreparedStatement pst = conn.prepareStatement(query)) {
                 pst.setInt(1, currentPuzzleIdVal);
                 pst.executeUpdate();
-                // On recharge le puzzle à l'offset actuel (qui sera le suivant dans la liste)
+                // On recharge le puzzle avec l'offset actuel
                 loadPuzzle(currentPuzzleOffset);
             }
         } catch (SQLException ex) {
@@ -126,7 +125,7 @@ public class DisplayController implements Initializable {
 
         if (matrice == null || matrice.isEmpty()) return;
 
-        // On nettoie la chaine pour ne garder que les 0 et 1 (au cas ou il y aurait des separateurs)
+        // On nettoie la chaine pour ne garder que les 0 et 1 au cas ou il y aurait des separateurs
         String cleanMatrice = matrice.replaceAll("[^01]", "");
         int totalCells = cleanMatrice.length();
         if (totalCells == 0) return;
@@ -134,7 +133,7 @@ public class DisplayController implements Initializable {
         int size = (int) Math.sqrt(totalCells);
         // On s'assure que c'est bien une matrice carree
         if (size * size != totalCells) {
-            // Optionnel: gerer les matrices non carrees
+            // gerer les matrices non carrees
         }
 
         double canvasWidth = canvasNonogram.getWidth();
@@ -162,7 +161,13 @@ public class DisplayController implements Initializable {
     @FXML
     private void returnToDatatable(ActionEvent event) {
         try {
-            App.setRoot("datatable");
+            // si l'utilisateur est admin, charge la table admin
+            if (LoginController.isAdmin) {
+                App.setRoot("datatable_admin");
+            } else {
+                // sinon charge la table pas admin
+                App.setRoot("datatable");
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
